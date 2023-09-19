@@ -4,16 +4,18 @@ import Golazos from "../official-contracts/Golazos.cdc"
 import MetadataViews from  "../official-contracts/MetadataViews.cdc"
 import DapperUtilityCoin from "../official-contracts/DapperUtilityCoins.cdc"
 
+//TODO: Chemistry Calculation & Strength Calculation & Challenge Join and Burn Stack (With Moments)
+
 access(all) contract GolazosStacks {
 
     access(all) var totalStacks: UInt64
 
-    access(all) event StackCreated(momentIDs: [UInt64], address: Address)
-    access(all) event StackListed(tokenIDs: [UInt64], price: UFix64, seller: Address?)
+    access(all) event StackCreated(momentIDs: [UInt64], stackID: UInt64, address: Address?)
+    access(all) event StackListed(stackID: UInt64, price: UFix64, seller: Address?)
     // access(all) event BundlePriceChanged(id: UInt64, newPrice: UFix64, seller: Address?)
-    access(all) event StackPurchased(id: UInt64, price: UFix64, seller: Address?)
-    access(all) event StackTransfered(id: UInt64, from: Address?, to: Address?)
-    access(all) event StackDestroyed(id: UInt64)
+    access(all) event StackPurchased(stackID: UInt64, price: UFix64, seller: Address?)
+    access(all) event StackTransfered(stackID: UInt64, from: Address?, to: Address?)
+    access(all) event StackDestroyed(stackID: UInt64)
 
     access(all) let GolazoStackStoragePath: StoragePath
     access(all) let GolazoStackPublicPath: PublicPath
@@ -219,9 +221,7 @@ access(all) contract GolazosStacks {
 
             Needed Metadata for Chemistry Calculations 
 
-            - MatchDay
-            - PlayType
-            - 
+            In file ./test/neededJson.json
             */
 
             // 1) Exactly 5 Moments 
@@ -301,6 +301,7 @@ access(all) contract GolazosStacks {
             self.stacks[GolazosStacks.totalStacks] = momentStack
 
             // EMIT Stack Creation Event
+            emit StackCreated(momentIDs: momentIDs, stackID: GolazosStacks.totalStacks, address: self.owner?.address)
 
             GolazosStacks.totalStacks = GolazosStacks.totalStacks + 1
         }
@@ -314,6 +315,9 @@ access(all) contract GolazosStacks {
 
             // Delete Stack
             self.stacks.remove(key: stackID)
+
+            // EMIT Stack Destruction Event
+            emit StackDestroyed(stackID: stackID)
         }
 
         access(all) fun changeStackName(stackID: UInt64, newName: String) {
@@ -339,7 +343,9 @@ access(all) contract GolazosStacks {
 
             // Set the listing
             self.stacks[stackID]?.placeStackForSale(price: price)
-            // emit BundleListed(tokenIDs: tokenIDs, price: price, seller: self.owner?.address)
+
+            // EMIT Stack Listed Event
+            emit StackListed(stackID: stackID, price: price, seller: self.owner?.address)
         }
 
         /// purchase lets a user send tokens to purchase a Bundle that is for sale
@@ -381,8 +387,13 @@ access(all) contract GolazosStacks {
             // add the Stack to the Buyer's Collection
             let buyerStacksCollectionRef = buyerStacksCollection.borrow()!
             buyerStacksCollectionRef.addMomentStack(momentStack: momentStack, stackID: stackID)
+
+            // EMIT stack Transfered Event
+            emit StackTransfered(stackID: stackID, from: self.owner?.address, to: buyerStacksCollectionRef.owner?.address)
             }
 
+            // EMIT stack Purchase Event
+            emit StackPurchased(stackID: stackID, price: momentStack.price, seller: self.owner?.address)
 
             return <- moments
         }
