@@ -85,8 +85,151 @@ access(all) contract GolazosStacks {
             }
         }
 
+        access(contract) fun getMomentStackAttribute(attribute: String): {String: UInt64}{
+
+            var attributeResult:{String: UInt64} = {}
+            switch attribute {
+                case "MatchHighlightedTeam":
+                    attributeResult = self.matchHighlightedTeamCount
+                case "PlayerPosition":
+                    attributeResult = self.playerPositionCount
+                case "MatchDay":
+                    attributeResult = self.matchDayCount
+                case "PlayType":
+                    attributeResult = self.playTypeCount
+                case "PlayerCountry":
+                    attributeResult = self.playerCountryCount
+                case "MatchSeason":
+                    attributeResult = self.matchSeasonCount
+                case "PlayHalf":
+                    attributeResult = self.playHalfCount
+                case "MatchHomeTeam":
+                    attributeResult = self.matchHomeTeamCount
+                case "MatchAwayTeam":
+                    attributeResult = self.matchAwayTeamCount
+                case "editionTier":
+                    attributeResult = self.editionTierCount
+                case "seriesName":
+                    attributeResult = self.seriesNameCount
+            }
+
+            return attributeResult
+
+        }
+
         // The function to Calculate the StackChemistry should be in this Struct
         access(all) fun getMomentStackChemistry(): UFix64 {
+
+            var chemistryScore: UInt64 = 0
+            var iteratedCount: Int = 0
+
+            var playerCountryAttributeChemScore: UInt64 = 0
+            var momentSeriesAttributeChemScore: UInt64 = 0
+            var highlightedTeamAttributeChemScore: UInt64 = 0
+            var matchDateAttributeChemScore: UInt64 = 0
+
+
+            // Initialize weights for different properties
+            let countryWeight: UInt64 = 3
+            let seriesWeight: UInt64 = 2
+            let highlightedTeamWeight: UInt64 = 3
+            let matchDateWeight: UInt64 = 5
+
+            // Edition Chemistru Points
+
+            let fandomEditionWeight: UInt64 = 0
+            // let fandomEditionWeight: UInt64 = 0
+            // let fandomEditionWeight: UInt64 = 0
+            // let fandomEditionWeight: UInt64 = 0
+            // let fandomEditionWeight: UInt64 = 0
+
+            var momentStackAttributes = self.getMomentStackAttributes()
+
+            var playerCountryCount = momentStackAttributes["PlayerCountry"] as! {String: UInt64}
+            var momentSeriesCount = momentStackAttributes["seriesName"] as! {String: UInt64} 
+            var matchHighlightedTeamCount = momentStackAttributes["MatchHighlightedTeam"] as! {String: UInt64}
+            var matchDateCount = momentStackAttributes["MatchDate"] as! {String: UInt64}
+
+        // https://developers.flow.com/cadence/language/values-and-types#dictionary-fields-and-functions
+
+        // PLAYER COUNTRY
+
+            playerCountryCount.forEachKey(fun (key: String): Bool {
+                iteratedCount = iteratedCount + 1
+            var dictionaryLength: Int = playerCountryCount.length
+
+                let value = playerCountryCount[key] as! UInt64
+
+                if(iteratedCount > dictionaryLength){ // If the iterated count is higher than the dictionary lenght, we stop the iteration
+                    return false
+                }
+
+                if(value > 1){ // If an attribute has a value more than one means multiple moments have a particular attribute, the chemistry is calculated my multiplying the value(number of moments) by the weight
+                    playerCountryAttributeChemScore = playerCountryAttributeChemScore + (value * countryWeight)
+                }
+                return true
+            })
+
+            iteratedCount = 0
+
+        // MOMENT SERIES
+
+            momentSeriesCount.forEachKey(fun (key: String): Bool {
+                iteratedCount = iteratedCount + 1
+            var dictionaryLength: Int = momentSeriesCount.length
+
+                let value = momentSeriesCount[key] as! UInt64
+
+                if(iteratedCount > dictionaryLength){ // If the iterated count is higher than the dictionary lenght, we stop the iteration
+                    return false
+                }
+
+                if(value > 1){ // If an attribute has a value more than one means multiple moments have a particular attribute, the chemistry is calculated my multiplying the value(number of moments) by the weight
+                    momentSeriesAttributeChemScore = momentSeriesAttributeChemScore + (value * seriesWeight)
+                }
+                return true
+            })
+
+            iteratedCount = 0
+
+        // MATCH HIGHLIGTED TEAM
+
+            matchHighlightedTeamCount.forEachKey(fun (key: String): Bool {
+                iteratedCount = iteratedCount + 1
+            var dictionaryLength: Int = matchHighlightedTeamCount.length
+
+                let value = matchHighlightedTeamCount[key] as! UInt64
+
+                if(iteratedCount > dictionaryLength){ // If the iterated count is higher than the dictionary lenght, we stop the iteration
+                    return false
+                }
+
+                if(value > 1){ // If an attribute has a value more than one means multiple moments have a particular attribute, the chemistry is calculated my multiplying the value(number of moments) by the weight
+                    highlightedTeamAttributeChemScore = highlightedTeamAttributeChemScore + (value * highlightedTeamWeight)
+                }
+                return true
+            })
+
+            iteratedCount = 0
+
+        // MATCH DATE
+
+            matchDateCount.forEachKey(fun (key: String): Bool {
+                iteratedCount = iteratedCount + 1
+            var dictionaryLength: Int = matchDateCount.length
+
+                let value = matchDateCount[key] as! UInt64
+
+                if(iteratedCount > dictionaryLength){ // If the iterated count is higher than the dictionary lenght, we stop the iteration
+                    return false
+                }
+
+                if(value > 1){ // If an attribute has a value more than one means multiple moments have a particular attribute, the chemistry is calculated my multiplying the value(number of moments) by the weight
+                    matchDateAttributeChemScore = matchDateAttributeChemScore + (value * matchDateWeight)
+                }
+                return true
+            })
+
             return 1.00
         }
 
