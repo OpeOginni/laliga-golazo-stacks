@@ -10,6 +10,20 @@ access(all) contract GolazosStacks {
 
     access(all) var totalStacks: UInt64
 
+    // Initialize weights for different properties
+    access(all) var countryWeight: UFix64 = 3.00
+    access(all) var seriesWeight: UFix64 = 2.00
+    access(all) var highlightedTeamWeight: UFix64 = 3.00
+    access(all) var matchDateWeight: UFix64 = 5.00
+
+    // Edition Chemistry Points
+
+    access(all) var fandomEditionWeight: UFix64 = 0.00
+    access(all) var uncommonEditionWeight: UFix64 = 0.50
+    access(all) var rareEditionWeight: UFix64 = 1.00
+    access(all) var legendaryEditionWeight: UFix64 = 2.00
+    // let fandomEditionWeight: UInt64 = 0
+
     access(all) event StackCreated(momentIDs: [UInt64], stackID: UInt64, address: Address?)
     access(all) event StackListed(stackID: UInt64, price: UFix64, seller: Address?)
     // access(all) event BundlePriceChanged(id: UInt64, newPrice: UFix64, seller: Address?)
@@ -120,28 +134,13 @@ access(all) contract GolazosStacks {
         // The function to Calculate the StackChemistry should be in this Struct
         access(all) fun getMomentStackChemistry(): UFix64 {
 
-            var chemistryScore: UInt64 = 0
-            var iteratedCount: Int = 0
+            var chemistryScore: UFix64 = 0.00
 
-            var playerCountryAttributeChemScore: UInt64 = 0
-            var momentSeriesAttributeChemScore: UInt64 = 0
-            var highlightedTeamAttributeChemScore: UInt64 = 0
-            var matchDateAttributeChemScore: UInt64 = 0
-
-
-            // Initialize weights for different properties
-            let countryWeight: UInt64 = 3
-            let seriesWeight: UInt64 = 2
-            let highlightedTeamWeight: UInt64 = 3
-            let matchDateWeight: UInt64 = 5
-
-            // Edition Chemistru Points
-
-            let fandomEditionWeight: UInt64 = 0
-            // let fandomEditionWeight: UInt64 = 0
-            // let fandomEditionWeight: UInt64 = 0
-            // let fandomEditionWeight: UInt64 = 0
-            // let fandomEditionWeight: UInt64 = 0
+            var playerCountryAttributeChemScore: UFix64 = 0.00
+            var momentSeriesAttributeChemScore: UFix64 = 0.00
+            var highlightedTeamAttributeChemScore: UFix64 = 0.00
+            var matchDateAttributeChemScore: UFix64 = 0.00
+            var momentTierAttributeChemScore: UFix64 = 0.00
 
             var momentStackAttributes = self.getMomentStackAttributes()
 
@@ -149,94 +148,80 @@ access(all) contract GolazosStacks {
             var momentSeriesCount = momentStackAttributes["seriesName"] as! {String: UInt64} 
             var matchHighlightedTeamCount = momentStackAttributes["MatchHighlightedTeam"] as! {String: UInt64}
             var matchDateCount = momentStackAttributes["MatchDate"] as! {String: UInt64}
+            var editionTierCount = momentStackAttributes["editionTier"] as! {String: UInt64}
 
         // https://developers.flow.com/cadence/language/values-and-types#dictionary-fields-and-functions
 
         // PLAYER COUNTRY
 
             playerCountryCount.forEachKey(fun (key: String): Bool {
-                iteratedCount = iteratedCount + 1
-            var dictionaryLength: Int = playerCountryCount.length
+                let value = playerCountryCount[key] as! UFix64
 
-                let value = playerCountryCount[key] as! UInt64
-
-                if(iteratedCount > dictionaryLength){ // If the iterated count is higher than the dictionary lenght, we stop the iteration
-                    return false
-                }
-
-                if(value > 1){ // If an attribute has a value more than one means multiple moments have a particular attribute, the chemistry is calculated my multiplying the value(number of moments) by the weight
+                if(value > 1.00){ // If an attribute has a value more than one means multiple moments have a particular attribute, the chemistry is calculated my multiplying the value(number of moments) by the weight
                     playerCountryAttributeChemScore = playerCountryAttributeChemScore + (value * countryWeight)
                 }
                 return true
             })
 
-            iteratedCount = 0
 
         // MOMENT SERIES
 
             momentSeriesCount.forEachKey(fun (key: String): Bool {
-                iteratedCount = iteratedCount + 1
-            var dictionaryLength: Int = momentSeriesCount.length
+                let value = momentSeriesCount[key] as! UFix64
 
-                let value = momentSeriesCount[key] as! UInt64
-
-                if(iteratedCount > dictionaryLength){ // If the iterated count is higher than the dictionary lenght, we stop the iteration
-                    return false
-                }
-
-                if(value > 1){ // If an attribute has a value more than one means multiple moments have a particular attribute, the chemistry is calculated my multiplying the value(number of moments) by the weight
+                if(value > 1.00){ // If an attribute has a value more than one means multiple moments have a particular attribute, the chemistry is calculated my multiplying the value(number of moments) by the weight
                     momentSeriesAttributeChemScore = momentSeriesAttributeChemScore + (value * seriesWeight)
                 }
                 return true
             })
 
-            iteratedCount = 0
-
         // MATCH HIGHLIGTED TEAM
 
             matchHighlightedTeamCount.forEachKey(fun (key: String): Bool {
-                iteratedCount = iteratedCount + 1
-            var dictionaryLength: Int = matchHighlightedTeamCount.length
+                let value = matchHighlightedTeamCount[key] as! UFix64
 
-                let value = matchHighlightedTeamCount[key] as! UInt64
-
-                if(iteratedCount > dictionaryLength){ // If the iterated count is higher than the dictionary lenght, we stop the iteration
-                    return false
-                }
-
-                if(value > 1){ // If an attribute has a value more than one means multiple moments have a particular attribute, the chemistry is calculated my multiplying the value(number of moments) by the weight
+                if(value > 1.00){ // If an attribute has a value more than one means multiple moments have a particular attribute, the chemistry is calculated my multiplying the value(number of moments) by the weight
                     highlightedTeamAttributeChemScore = highlightedTeamAttributeChemScore + (value * highlightedTeamWeight)
                 }
                 return true
             })
 
-            iteratedCount = 0
 
         // MATCH DATE
 
             matchDateCount.forEachKey(fun (key: String): Bool {
-                iteratedCount = iteratedCount + 1
-            var dictionaryLength: Int = matchDateCount.length
+                let value = matchDateCount[key] as! UFix64
 
-                let value = matchDateCount[key] as! UInt64
-
-                if(iteratedCount > dictionaryLength){ // If the iterated count is higher than the dictionary lenght, we stop the iteration
-                    return false
-                }
-
-                if(value > 1){ // If an attribute has a value more than one means multiple moments have a particular attribute, the chemistry is calculated my multiplying the value(number of moments) by the weight
+                if(value > 1.00){ // If an attribute has a value more than one means multiple moments have a particular attribute, the chemistry is calculated my multiplying the value(number of moments) by the weight
                     matchDateAttributeChemScore = matchDateAttributeChemScore + (value * matchDateWeight)
                 }
                 return true
             })
 
-            return 1.00
+        // EDITION TEIR
+
+            editionTierCount.forEachKey(fun (key: String): Bool {
+                let value = editionTierCount[key] as! String
+
+                // Depending on the Moment Tier a specified Chemistry Weight is added
+                switch value {
+                    case "FANDOM":
+                        momentTierAttributeChemScore = momentTierAttributeChemScore + fandomEditionWeight
+                    case "UNCOMMON":
+                        momentTierAttributeChemScore = momentTierAttributeChemScore + uncommonEditionWeight
+                    case "RARE":
+                        momentTierAttributeChemScore = momentTierAttributeChemScore + rareEditionWeight
+                    case "LEGENDARY":
+                        momentTierAttributeChemScore = momentTierAttributeChemScore + legendaryEditionWeight
+                }
+                return true
+            })
+
+            chemistryScore = playerCountryAttributeChemScore + momentSeriesAttributeChemScore + highlightedTeamAttributeChemScore + matchDateAttributeChemScore
+
+            return chemistryScore
         }
 
-        // The function to Calculate the StackStrength should be in this Struct
-        access(all) fun getMomentStackStrength(): UFix64 {
-            return 1.00
-        }
 
         // This function will return an Attribute and the number of Moments that has that Attribute in the Stack, Creators of Challenges can use these
         // Attributes to create Challenges that can be completed by a Stack
@@ -339,9 +324,11 @@ access(all) contract GolazosStacks {
         }
 
         access(all) fun addMomentStack(momentStack: MomentStack, stackID: UInt64){
-            // This function will be used to send a stack from one user to another user, without having to dismantle the stack, if a user wants them as a stack
+            // This function will be used to send a stack from one user to another user, without having to dismantle the stack, if a user wants the moments to be transfered with the stack too
 
             // Only add the Stack IF all the Moments in the Stack are in the Collection
+            // This function is meant to be called AFTER a successful transfer of all moments in the stack
+
             for momentID in momentStack.momentIDs {
                 if(self.ownerCollection.borrow()!.borrowMomentNFT(id: momentID) == nil){
                     return
@@ -350,8 +337,6 @@ access(all) contract GolazosStacks {
 
             // If a Stack is Just being moved it should retain its ID
             self.stacks[stackID] = momentStack
-            // GolazosStacks.totalStacks = GolazosStacks.totalStacks + 1
-
         }
 
         access(all) fun createMomentStack(momentIDs: [UInt64], momentStackName: String) {
@@ -477,9 +462,9 @@ access(all) contract GolazosStacks {
         }
 
         access(all) fun listForSale(stackID: UInt64, price: UFix64) {
-            // make sure the user has all the stackID
+            // make sure the user has all Moments in the stack using the `checkStackValidity` function
             if(!self.checkStackValidity(stackID: stackID)){
-                // If the Stack is not Valid, we Destroy it and Return
+                // If the Stack is not Valid, we Destroy it and Return (This means the user has a missing Moment and the stack is invalid)
                 self.destroyStack(stackID: stackID)
                 return
             }
@@ -514,8 +499,6 @@ access(all) contract GolazosStacks {
             // Deposit the remaining tokens into the owners vault
             self.ownerCapability.borrow()!.deposit(from: <-buyTokens)
 
-            // emit BundlePurchased(id: bundleID, price: saleData.price, seller: self.owner?.address)
-
             // Return the purchased Stack
             let moments: @[Golazos.NFT] <- []
 
@@ -523,7 +506,9 @@ access(all) contract GolazosStacks {
                 moments.append(<- (self.ownerCollection.borrow()!.withdraw(withdrawID: id) as! @Golazos.NFT))
             }
 
-            // remove the Stack from Seller's Collection
+            // remove the StackID from te contract
+
+            // If the buyer wants to purcahse the stack too, the ID will be put back in the `addMomentStack` function
             self.stacks.remove(key: stackID)
 
             if(keepStack == true){
@@ -572,18 +557,27 @@ access(all) contract GolazosStacks {
             return true
         }
 
-        access(all) fun getMomentStackData(stackID: UInt64): MomentStack? {
-            return self.stacks[stackID]
-        }
+        // These are UTIL functions that can be used to check if a Stack Passes a Challenge or not
+        access(all) fun getStackData(stackID: UInt64): {String: AnyStruct}? {
 
-        access(all) fun getStackData(stackID: UInt64): MomentStack? {
-            return self.stacks[stackID]
+            let stack: MomentStack = self.stacks[stackID] ?? panic("Stack with ID".concat(stackID.toString()).concat(" does not exist"))  
+
+            let stackData: {String: AnyStruct} = {
+                "price": stack.price,
+                "onSale": stack.onSale,
+                "momentIDs": stack.momentIDs,
+                "stackChemistry": stack.momentStackChemistry,
+                "stackName": stack.momentStackName,
+                "stackAttributes": stack.stackMomentsAttributes
+            }
+
+            return stackData
         }
 
         access(all) fun getMomentDatasInMomentStack(stackID: UInt64): [&Golazos.NFT?]? {
-            if let stack: MomentStack = self.getStackData(stackID: stackID) {
+            if let stackData: MomentStack = self.getStackData(stackID: stackID) {
                 let answer: [&Golazos.NFT?] = []
-                for momentID in stack.momentIDs {
+                for momentID in stackData["momentIDs"] {
                     let ref: &Golazos.NFT? = self.ownerCollection.borrow()!.borrowMomentNFT(id: momentID)
                     answer.append(ref)
                 }
