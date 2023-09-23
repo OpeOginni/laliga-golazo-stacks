@@ -10,19 +10,6 @@ access(all) contract GolazosStacks {
 
     access(all) var totalStacks: UInt64
 
-    // Initialize weights for different properties
-    access(all) var countryWeight: UFix64 = 3.00
-    access(all) var seriesWeight: UFix64 = 2.00
-    access(all) var highlightedTeamWeight: UFix64 = 3.00
-    access(all) var matchDateWeight: UFix64 = 5.00
-
-    // Edition Chemistry Points
-
-    access(all) var fandomEditionWeight: UFix64 = 0.00
-    access(all) var uncommonEditionWeight: UFix64 = 0.50
-    access(all) var rareEditionWeight: UFix64 = 1.00
-    access(all) var legendaryEditionWeight: UFix64 = 2.00
-    // let fandomEditionWeight: UInt64 = 0
 
     access(all) event StackCreated(momentIDs: [UInt64], stackID: UInt64, address: Address?)
     access(all) event StackListed(stackID: UInt64, price: UFix64, seller: Address?)
@@ -33,6 +20,8 @@ access(all) contract GolazosStacks {
 
     access(all) let GolazoStackStoragePath: StoragePath
     access(all) let GolazoStackPublicPath: PublicPath
+
+
   
     access(all) struct StackMomentsAttributes {
     // These attributes will be used to determine how closely alike Moments in a Stack are
@@ -133,6 +122,20 @@ access(all) contract GolazosStacks {
 
         // The function to Calculate the StackChemistry should be in this Struct
         access(all) fun getMomentStackChemistry(): UFix64 {
+
+            // Initialize weights for different properties
+            var countryWeight: UFix64 = 3.00
+            var seriesWeight: UFix64 = 2.00
+            var highlightedTeamWeight: UFix64 = 3.00
+            var matchDateWeight: UFix64 = 5.00
+
+             // Edition Chemistry Points
+
+            var fandomEditionWeight: UFix64 = 0.00
+            var uncommonEditionWeight: UFix64 = 0.50
+            var rareEditionWeight: UFix64 = 1.00
+            var legendaryEditionWeight: UFix64 = 2.00
+            // let fandomEditionWeight: UInt64 = 0
 
             var chemistryScore: UFix64 = 0.00
 
@@ -575,9 +578,10 @@ access(all) contract GolazosStacks {
         }
 
         access(all) fun getMomentDatasInMomentStack(stackID: UInt64): [&Golazos.NFT?]? {
-            if let stackData: MomentStack = self.getStackData(stackID: stackID) {
+            if let stackData: {String: AnyStruct} = self.getStackData(stackID: stackID) {
                 let answer: [&Golazos.NFT?] = []
-                for momentID in stackData["momentIDs"] {
+                let momentIDs = stackData["momentIDs"] as? [UInt64]!
+                for momentID in momentIDs {
                     let ref: &Golazos.NFT? = self.ownerCollection.borrow()!.borrowMomentNFT(id: momentID)
                     answer.append(ref)
                 }
