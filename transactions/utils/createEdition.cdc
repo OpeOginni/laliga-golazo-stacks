@@ -1,4 +1,4 @@
-import Golazos from "../../contracts/official-contracts/Golazos.cdc"
+import Golazos from "../../contracts/utils/Golazos.cdc"
 
 transaction(
     seriesID: UInt64,

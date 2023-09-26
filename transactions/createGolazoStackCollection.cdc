@@ -1,6 +1,6 @@
 import GolazosStacks from "../contracts/GolazosStacks.cdc"
-import Golazos from "../contracts/official-contracts/Golazos.cdc"
-import FungibleToken from "../contracts/official-contracts/FungibleToken.cdc"
+import Golazos from "../contracts/utils/Golazos.cdc"
+import FungibleToken from "../contracts/utils/FungibleToken.cdc"
 
 transaction() {
 

@@ -1,7 +1,7 @@
-import FungibleToken from "../official-contracts/FungibleToken"
-import NonFungibleToken from "../official-contracts/NonFungibleToken"
-import MetadataViews from "../official-contracts/MetadataViews"
-import Golazos from "../official-contracts/Golazos"
+import FungibleToken from "../utils/FungibleToken"
+import NonFungibleToken from "../utils/NonFungibleToken"
+import MetadataViews from "../utils/MetadataViews"
+import Golazos from "../utils/Golazos"
 
 access(all) contract GolazosStacks: NonFungibleToken {
 

@@ -1,7 +1,7 @@
 import GolazosStacks from "../../contracts/GolazosStacks.cdc"
-import Golazos from "../../contracts/official-contracts/Golazos.cdc"
-import FungibleToken from "../../contracts/official-contracts/FungibleToken.cdc"
-import DapperUtilityCoin from "../../contracts/official-contracts/DapperUtilityCoins.cdc"
+import Golazos from "../../contracts/utils/Golazos.cdc"
+import FungibleToken from "../../contracts/utils/FungibleToken.cdc"
+import DapperUtilityCoin from "../../contracts/utils/DapperUtilityCoins.cdc"
 
 transaction(
     name: String,

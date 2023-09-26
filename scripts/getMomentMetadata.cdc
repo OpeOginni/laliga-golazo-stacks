@@ -1,4 +1,4 @@
-import Golazos from "../contracts/official-contracts/Golazos.cdc"
+import Golazos from "../contracts/utils/Golazos.cdc"
 
 
 pub fun main(address: Address, tokenID: UInt64): String {

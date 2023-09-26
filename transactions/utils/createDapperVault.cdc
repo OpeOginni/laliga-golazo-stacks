@@ -1,5 +1,5 @@
-import FungibleToken from "../../contracts/official-contracts/FungibleToken.cdc"
-import DapperUtilityCoin from "../../contracts/official-contracts/DapperUtilityCoins.cdc"
+import FungibleToken from "../../contracts/utils/FungibleToken.cdc"
+import DapperUtilityCoin from "../../contracts/utils/DapperUtilityCoins.cdc"
 
 transaction() {
 

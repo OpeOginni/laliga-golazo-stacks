@@ -1,8 +1,8 @@
-import FungibleToken from "./official-contracts/FungibleToken.cdc"
-import NonFungibleToken from "./official-contracts/NonFungibleToken.cdc"
-import Golazos from "./official-contracts/Golazos.cdc"
-import MetadataViews from  "./official-contracts/MetadataViews.cdc"
-import DapperUtilityCoin from "./official-contracts/DapperUtilityCoins.cdc"
+import FungibleToken from "./utils/FungibleToken.cdc"
+import NonFungibleToken from "./utils/NonFungibleToken.cdc"
+import Golazos from "./utils/Golazos.cdc"
+import MetadataViews from  "./utils/MetadataViews.cdc"
+import DapperUtilityCoin from "./utils/DapperUtilityCoins.cdc"
 
 access(all) contract GolazosStacks {
 
