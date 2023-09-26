@@ -1,15 +1,12 @@
-import FungibleToken from "../official-contracts/FungibleToken.cdc"
-import NonFungibleToken from "../official-contracts/NonFungibleToken.cdc"
-import Golazos from "../official-contracts/Golazos.cdc"
-import MetadataViews from  "../official-contracts/MetadataViews.cdc"
-import DapperUtilityCoin from "../official-contracts/DapperUtilityCoins.cdc"
-
-//TODO: Chemistry Calculation & Strength Calculation & Challenge Join and Burn Stack (With Moments)
+import FungibleToken from "./official-contracts/FungibleToken.cdc"
+import NonFungibleToken from "./official-contracts/NonFungibleToken.cdc"
+import Golazos from "./official-contracts/Golazos.cdc"
+import MetadataViews from  "./official-contracts/MetadataViews.cdc"
+import DapperUtilityCoin from "./official-contracts/DapperUtilityCoins.cdc"
 
 access(all) contract GolazosStacks {
 
     access(all) var totalStacks: UInt64
-
 
     access(all) event StackCreated(momentIDs: [UInt64], stackID: UInt64, address: Address?)
     access(all) event StackListed(stackID: UInt64, price: UFix64, seller: Address?)
@@ -121,46 +118,48 @@ access(all) contract GolazosStacks {
         }
 
         // The function to Calculate the StackChemistry should be in this Struct
-        access(all) fun getMomentStackChemistry(): UFix64 {
+        access(all) fun getMomentStackChemistry(): UInt64 {
 
             // Initialize weights for different properties
-            var countryWeight: UFix64 = 3.00
-            var seriesWeight: UFix64 = 2.00
-            var highlightedTeamWeight: UFix64 = 3.00
-            var matchDateWeight: UFix64 = 5.00
+            var countryWeight: UInt64 = 3
+            var seriesWeight: UInt64 = 2
+            var highlightedTeamWeight: UInt64 = 3
+            var matchDateWeight: UInt64 = 5
 
              // Edition Chemistry Points
 
-            var fandomEditionWeight: UFix64 = 0.00
-            var uncommonEditionWeight: UFix64 = 0.50
-            var rareEditionWeight: UFix64 = 1.00
-            var legendaryEditionWeight: UFix64 = 2.00
+            var fandomEditionWeight: UInt64 = 0
+            var uncommonEditionWeight: UInt64 = 1
+            var rareEditionWeight: UInt64 = 1
+            var legendaryEditionWeight: UInt64 = 2
             // let fandomEditionWeight: UInt64 = 0
 
-            var chemistryScore: UFix64 = 0.00
+            var chemistryScore: UInt64 = 0
 
-            var playerCountryAttributeChemScore: UFix64 = 0.00
-            var momentSeriesAttributeChemScore: UFix64 = 0.00
-            var highlightedTeamAttributeChemScore: UFix64 = 0.00
-            var matchDateAttributeChemScore: UFix64 = 0.00
-            var momentTierAttributeChemScore: UFix64 = 0.00
+            var playerCountryAttributeChemScore: UInt64 = 0
+            var momentSeriesAttributeChemScore: UInt64 = 0
+            var highlightedTeamAttributeChemScore: UInt64 = 0
+            var matchDateAttributeChemScore: UInt64 = 0
+            var momentTierAttributeChemScore: UInt64 = 0
 
             var momentStackAttributes = self.getMomentStackAttributes()
 
-            var playerCountryCount = momentStackAttributes["PlayerCountry"] as! {String: UInt64}
-            var momentSeriesCount = momentStackAttributes["seriesName"] as! {String: UInt64} 
-            var matchHighlightedTeamCount = momentStackAttributes["MatchHighlightedTeam"] as! {String: UInt64}
-            var matchDateCount = momentStackAttributes["MatchDate"] as! {String: UInt64}
-            var editionTierCount = momentStackAttributes["editionTier"] as! {String: UInt64}
+            log(momentStackAttributes)
+
+            var playerCountryCount = momentStackAttributes["PlayerCountry"]! as! {String: UInt64}
+            var momentSeriesCount = momentStackAttributes["seriesName"]! as! {String: UInt64} 
+            var matchHighlightedTeamCount = momentStackAttributes["MatchHighlightedTeam"]! as! {String: UInt64}
+            var matchDateCount = momentStackAttributes["MatchDay"]! as! {String: UInt64}
+            var editionTierCount = momentStackAttributes["editionTier"]! as! {String: UInt64}
 
         // https://developers.flow.com/cadence/language/values-and-types#dictionary-fields-and-functions
 
         // PLAYER COUNTRY
 
             playerCountryCount.forEachKey(fun (key: String): Bool {
-                let value = playerCountryCount[key] as! UFix64
+                let value = playerCountryCount[key]!
 
-                if(value > 1.00){ // If an attribute has a value more than one means multiple moments have a particular attribute, the chemistry is calculated my multiplying the value(number of moments) by the weight
+                if(value > 1){ // If an attribute has a value more than one means multiple moments have a particular attribute, the chemistry is calculated my multiplying the value(number of moments) by the weight
                     playerCountryAttributeChemScore = playerCountryAttributeChemScore + (value * countryWeight)
                 }
                 return true
@@ -170,9 +169,9 @@ access(all) contract GolazosStacks {
         // MOMENT SERIES
 
             momentSeriesCount.forEachKey(fun (key: String): Bool {
-                let value = momentSeriesCount[key] as! UFix64
+                let value = momentSeriesCount[key]!
 
-                if(value > 1.00){ // If an attribute has a value more than one means multiple moments have a particular attribute, the chemistry is calculated my multiplying the value(number of moments) by the weight
+                if(value > 1){ // If an attribute has a value more than one means multiple moments have a particular attribute, the chemistry is calculated my multiplying the value(number of moments) by the weight
                     momentSeriesAttributeChemScore = momentSeriesAttributeChemScore + (value * seriesWeight)
                 }
                 return true
@@ -181,9 +180,9 @@ access(all) contract GolazosStacks {
         // MATCH HIGHLIGTED TEAM
 
             matchHighlightedTeamCount.forEachKey(fun (key: String): Bool {
-                let value = matchHighlightedTeamCount[key] as! UFix64
+                let value = matchHighlightedTeamCount[key]!
 
-                if(value > 1.00){ // If an attribute has a value more than one means multiple moments have a particular attribute, the chemistry is calculated my multiplying the value(number of moments) by the weight
+                if(value > 1){ // If an attribute has a value more than one means multiple moments have a particular attribute, the chemistry is calculated my multiplying the value(number of moments) by the weight
                     highlightedTeamAttributeChemScore = highlightedTeamAttributeChemScore + (value * highlightedTeamWeight)
                 }
                 return true
@@ -193,9 +192,9 @@ access(all) contract GolazosStacks {
         // MATCH DATE
 
             matchDateCount.forEachKey(fun (key: String): Bool {
-                let value = matchDateCount[key] as! UFix64
+                let value = matchDateCount[key]!
 
-                if(value > 1.00){ // If an attribute has a value more than one means multiple moments have a particular attribute, the chemistry is calculated my multiplying the value(number of moments) by the weight
+                if(value > 1){ // If an attribute has a value more than one means multiple moments have a particular attribute, the chemistry is calculated my multiplying the value(number of moments) by the weight
                     matchDateAttributeChemScore = matchDateAttributeChemScore + (value * matchDateWeight)
                 }
                 return true
@@ -204,10 +203,9 @@ access(all) contract GolazosStacks {
         // EDITION TEIR
 
             editionTierCount.forEachKey(fun (key: String): Bool {
-                let value = editionTierCount[key] as! String
 
                 // Depending on the Moment Tier a specified Chemistry Weight is added
-                switch value {
+                switch key {
                     case "FANDOM":
                         momentTierAttributeChemScore = momentTierAttributeChemScore + fandomEditionWeight
                     case "UNCOMMON":
@@ -249,11 +247,11 @@ access(all) contract GolazosStacks {
         access(all) var price: UFix64
         access(all) var onSale: Bool
         access(all) let momentIDs: [UInt64] // I want to make this a constant at the moment, to create a new stack, you have to destroy any old stacks and create a new one
-        access(all) let momentStackChemistry: UFix64
+        access(all) let momentStackChemistry: UInt64
         access(all) var momentStackName: String
         access(all) let stackMomentsAttributes: StackMomentsAttributes
 
-        init(price: UFix64, momentIDs: [UInt64], momentStackChemistry: UFix64, momentStackName: String, stackMomentsAttributes: StackMomentsAttributes) {
+        init(price: UFix64, momentIDs: [UInt64], momentStackChemistry: UInt64, momentStackName: String, stackMomentsAttributes: StackMomentsAttributes) {
             assert(momentIDs.length == 5, message: "A Stack is made up of 5 Moments")
 
             self.price = price
@@ -284,46 +282,33 @@ access(all) contract GolazosStacks {
     }
 
     access(all) resource interface StackPublic {
-        access(all) fun purchase(stackID: UInt64, buyTokens: @DapperUtilityCoin.Vault, buyerStacksCollection: Capability<&GolazosStacks.GolazosStackCollection>, keepStack: Bool): @[Golazos.NFT]
+        // access(all) fun purchase(stackID: UInt64, buyTokens: @DapperUtilityCoin.Vault, buyerStacksCollection: Capability<&GolazosStacks.GolazosStackCollection>, keepStack: Bool): @[Golazos.NFT]
         access(all) fun addMomentStack(momentStack: MomentStack, stackID: UInt64)
         access(all) fun getMomentStackAttributes(stackID: UInt64): {String: AnyStruct} // Returns the details of a particular stack in the Collection using the ID
         access(all) fun getMomentDatasInMomentStack(stackID: UInt64): [&Golazos.NFT?]? // Returns the details of each Moment in a Stack
         access(all) fun getStackIDs(): [UInt64] // Returns available Stack Resource IDs in a Stack Collection
+        access(all) fun getStackData(stackID: UInt64): {String: AnyStruct}?
     }
   
     access(all) resource GolazosStackCollection: StackPublic {
-        access(self) var ownerCollection: Capability<&Golazos.Collection> // A reference to the Capability of the User's Golazos Collection
+        access(self) var ownerCollection: Capability<&{Golazos.MomentNFTCollectionPublic}> // A reference to the Capability of the User's Golazos Collection
         access(self) var stacks: {UInt64: MomentStack} // A mapping of an Unsigned Integer to a Stack, represents the stack ID
         access(self) var ownerCapability: Capability<&{FungibleToken.Receiver}> // A Referecnce to the FungibleToken Reciever Capability to aid Transfer of tokens for Selling and Buying
         access(self) var stackedMoments: {UInt64: Bool} // A mapping of MomentIDs to a boolean, represents if a Moment is in a Stack or not
 
         init (
-            ownerCollection: Capability<&Golazos.Collection>,
-            ownerCapability: Capability<&{FungibleToken.Receiver}>
+            ownerCollection: Capability<&{Golazos.MomentNFTCollectionPublic}>,
+            ownerFungibleTokenReciverCapability: Capability<&{FungibleToken.Receiver}>
         ) {
             pre {
                 ownerCollection.check(): "Owner's Golazos Moment Collection Capability is invalid!"
-                ownerCapability.check(): "Owner's Receiver Capability is invalid!"
+                ownerFungibleTokenReciverCapability.check(): "Owner's Receiver Capability is invalid!"
             }
 
                 self.ownerCollection = ownerCollection
-                self.ownerCapability = ownerCapability
+                self.ownerCapability = ownerFungibleTokenReciverCapability
                 self.stacks = {}
                 self.stackedMoments = {}
-        }
-
-        access(self) fun getMomentTraits(momentID: UInt64): {String: AnyStruct} {
-        // This is an internal contract function that lets the contract get the Details/Traits for each moment
-
-            let momentNFT = self.ownerCollection.borrow()!.borrowMomentNFT(id: momentID) ?? panic("Moment with ID ".concat(momentID.toString()).concat(" does not exist in the owner's collection"))
-
-            return momentNFT.getTraits()
-        }
-
-        access(all) fun getMomentStackAttributes(stackID: UInt64): {String: AnyStruct} {
-            let momentStack = self.stacks[stackID]?.stackMomentsAttributes ?? panic("Stack with ID ".concat(stackID.toString()).concat(" does not exist in the collection"))
-
-            return momentStack.getMomentStackAttributes()
         }
 
         access(all) fun addMomentStack(momentStack: MomentStack, stackID: UInt64){
@@ -481,6 +466,8 @@ access(all) contract GolazosStacks {
 
         /// purchase lets a user send tokens to purchase a Bundle that is for sale
         /// the purchased Bundle is returned to the transaction context that called it
+
+/*
         access(all) fun purchase(stackID: UInt64, buyTokens: @DapperUtilityCoin.Vault, buyerStacksCollection: Capability<&GolazosStacks.GolazosStackCollection>, keepStack: Bool): @[Golazos.NFT] {
             pre {
                 self.stacks[stackID] == nil: "No bundle matching this ID for sale!"
@@ -529,6 +516,7 @@ access(all) contract GolazosStacks {
             return <- moments
         }
 
+*/
         access(all) fun changeOwnerReceiver(_ newOwnerCapability: Capability<&{FungibleToken.Receiver}>) {
             pre {
                 newOwnerCapability.borrow() != nil: 
@@ -561,6 +549,24 @@ access(all) contract GolazosStacks {
         }
 
         // These are UTIL functions that can be used to check if a Stack Passes a Challenge or not
+
+        access(self) fun getMomentTraits(momentID: UInt64): {String: AnyStruct} {
+        // This is an internal contract function that lets the contract get the Details/Traits for each moment
+
+            let momentNFT = self.ownerCollection.borrow()!.borrowMomentNFT(id: momentID) ?? panic("Moment with ID ".concat(momentID.toString()).concat(" does not exist in the owner's collection"))
+
+            return momentNFT.getTraits()
+        }
+
+        /// This function will be used to check if a Stack Reaches the Requirements of a Challenge, by returning its Attributes 
+        /// Attributes Include, a value and how many Moments have that Value
+        access(all) fun getMomentStackAttributes(stackID: UInt64): {String: AnyStruct} {
+            let momentStack = self.stacks[stackID]?.stackMomentsAttributes ?? panic("Stack with ID ".concat(stackID.toString()).concat(" does not exist in the collection"))
+
+            return momentStack.getMomentStackAttributes()
+        }
+
+        /// This function will be used to check the data of a stack, it will be used to display the details of a stack to a user
         access(all) fun getStackData(stackID: UInt64): {String: AnyStruct}? {
 
             let stack: MomentStack = self.stacks[stackID] ?? panic("Stack with ID".concat(stackID.toString()).concat(" does not exist"))  
@@ -570,8 +576,7 @@ access(all) contract GolazosStacks {
                 "onSale": stack.onSale,
                 "momentIDs": stack.momentIDs,
                 "stackChemistry": stack.momentStackChemistry,
-                "stackName": stack.momentStackName,
-                "stackAttributes": stack.stackMomentsAttributes
+                "stackName": stack.momentStackName
             }
 
             return stackData
@@ -600,10 +605,10 @@ access(all) contract GolazosStacks {
     /// createCollection returns a new collection resource to the caller
 
     access(all) fun createGolazoStackCollection(
-        ownerCollection: Capability<&Golazos.Collection>,                    
-        ownerCapability: Capability<&{FungibleToken.Receiver}> 
+        ownerCollection: Capability<&{Golazos.MomentNFTCollectionPublic}>,                    
+        ownerFungibleTokenReciverCapability: Capability<&{FungibleToken.Receiver}> 
     ): @GolazosStackCollection {
-        return <- create GolazosStackCollection(ownerCollection: ownerCollection, ownerCapability: ownerCapability)
+        return <- create GolazosStackCollection(ownerCollection: ownerCollection, ownerFungibleTokenReciverCapability: ownerFungibleTokenReciverCapability)
     }
 
       init() {
@@ -611,4 +616,4 @@ access(all) contract GolazosStacks {
         self.GolazoStackStoragePath = /storage/GolazoStackCollection
         self.GolazoStackPublicPath = /public/GolazoStackCollection
       }
-    } 
+} 

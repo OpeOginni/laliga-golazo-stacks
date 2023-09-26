@@ -1,0 +1,24 @@
+[
+  {
+    "type": "Address",
+    "value": "0x87ca73a41bb50ad5"
+  },
+  {
+    "type": "Array",
+    "value": [
+      {
+        "type": "UInt64",
+        "value": "573"
+      }
+    ]
+  },
+  {
+    "type": "Array",
+    "value": [
+      {
+        "type": "UInt64",
+        "value": "100"
+      }
+    ]
+  }
+]

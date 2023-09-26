@@ -1,0 +1,211 @@
+[
+  {
+    "type": "String",
+    "value": "Player Game"
+  },
+  {
+    "type": "Dictionary",
+    "value": [
+      {
+        "key": {
+          "type": "String",
+          "value": "MatchAwayScore"
+        },
+        "value": {
+          "type": "String",
+          "value": "1"
+        }
+      },
+      {
+        "key": {
+          "type": "String",
+          "value": "MatchAwayTeam"
+        },
+        "value": {
+          "type": "String",
+          "value": "RCD Espanyol de Barcelona"
+        }
+      },
+      {
+        "key": {
+          "type": "String",
+          "value": "MatchDate"
+        },
+        "value": {
+          "type": "String",
+          "value": "2023-04-15 16:30:00 +0000 UTC"
+        }
+      },
+      {
+        "key": {
+          "type": "String",
+          "value": "MatchDay"
+        },
+        "value": {
+          "type": "String",
+          "value": "29"
+        }
+      },
+      {
+        "key": {
+          "type": "String",
+          "value": "MatchHighlightedTeam"
+        },
+        "value": {
+          "type": "String",
+          "value": "RCD Espanyol de Barcelona"
+        }
+      },
+      {
+        "key": {
+          "type": "String",
+          "value": "MatchHomeScore"
+        },
+        "value": {
+          "type": "String",
+          "value": "3"
+        }
+      },
+      {
+        "key": {
+          "type": "String",
+          "value": "MatchHomeTeam"
+        },
+        "value": {
+          "type": "String",
+          "value": "Real Betis"
+        }
+      },
+      {
+        "key": {
+          "type": "String",
+          "value": "MatchSeason"
+        },
+        "value": {
+          "type": "String",
+          "value": "2022-2023"
+        }
+      },
+      {
+        "key": {
+          "type": "String",
+          "value": "PlayDataID"
+        },
+        "value": {
+          "type": "String",
+          "value": "2301868_214125_recrRlVPGDUOBPN2r"
+        }
+      },
+      {
+        "key": {
+          "type": "String",
+          "value": "PlayerCountry"
+        },
+        "value": {
+          "type": "String",
+          "value": "Mexico"
+        }
+      },
+      {
+        "key": {
+          "type": "String",
+          "value": "PlayerDataID"
+        },
+        "value": {
+          "type": "String",
+          "value": "214125"
+        }
+      },
+      {
+        "key": {
+          "type": "String",
+          "value": "PlayerFirstName"
+        },
+        "value": {
+          "type": "String",
+          "value": "César"
+        }
+      },
+      {
+        "key": {
+          "type": "String",
+          "value": "PlayerJerseyName"
+        },
+        "value": {
+          "type": "String",
+          "value": "C. Montes"
+        }
+      },
+      {
+        "key": {
+          "type": "String",
+          "value": "PlayerKnownName"
+        },
+        "value": {
+          "type": "String",
+          "value": ""
+        }
+      },
+      {
+        "key": {
+          "type": "String",
+          "value": "PlayerLastName"
+        },
+        "value": {
+          "type": "String",
+          "value": "Montes"
+        }
+      },
+      {
+        "key": {
+          "type": "String",
+          "value": "PlayerNumber"
+        },
+        "value": {
+          "type": "String",
+          "value": "23"
+        }
+      },
+      {
+        "key": {
+          "type": "String",
+          "value": "PlayerPosition"
+        },
+        "value": {
+          "type": "String",
+          "value": "Defender"
+        }
+      },
+      {
+        "key": {
+          "type": "String",
+          "value": "PlayHalf"
+        },
+        "value": {
+          "type": "String",
+          "value": "2"
+        }
+      },
+      {
+        "key": {
+          "type": "String",
+          "value": "PlayTime"
+        },
+        "value": {
+          "type": "String",
+          "value": "48"
+        }
+      },
+      {
+        "key": {
+          "type": "String",
+          "value": "PlayType"
+        },
+        "value": {
+          "type": "String",
+          "value": "GOAL"
+        }
+      }
+    ]
+  }
+]

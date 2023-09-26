@@ -1,10 +1,4 @@
-import NonFungibleToken from 0x1d7e57aa55817448
-import MetadataViews from 0x1d7e57aa55817448
-import Golazos from 0x87ca73a41bb50ad5
-
-// import FungibleToken from "../official-contracts/FungibleToken.cdc"
-// import NonFungibleToken from "../official-contracts/NonFungibleToken.cdc"
-// import Golazos from "../official-contracts/Golazos.cdc"
+import Golazos from "../contracts/official-contracts/Golazos.cdc"
 
 
 pub fun main(address: Address, tokenID: UInt64): String {

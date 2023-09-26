@@ -1,0 +1,25 @@
+[
+  {
+    "type": "UInt64",
+    "value": "1"
+  },
+  {
+    "type": "UInt64",
+    "value": "11"
+  },
+  {
+    "type": "UInt64",
+    "value": "574"
+  },
+  {
+    "type": "String",
+    "value": "UNCOMMON"
+  },
+  {
+    "type": "Optional",
+    "value": {
+      "type": "UInt64",
+      "value": "173"
+    }
+  }
+]
