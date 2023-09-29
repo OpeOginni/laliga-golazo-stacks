@@ -56,4 +56,4 @@ chmod u+x ./bin/scripts/getMomentIDs
 
 ### DEMO
 
-![Demo VID](./assets/GolazoStacks_Vid.mp4)
+**Test Demo Video** - https://vimeo.com/869608940?share=copy
