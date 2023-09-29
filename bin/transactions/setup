@@ -1,0 +1,27 @@
+#!/bin/bash
+set -e #stops the execution of the script if it fails
+
+ABS_PATH=$(readlink -f "$0")
+
+TRANSACTIONS_PATH=$(dirname $ABS_PATH)
+BIN_PATH=$(dirname $TRANSACTIONS_PATH)
+PROJECT_PATH=$(dirname $BIN_PATH)
+
+echo $PROJECT_PATH
+
+# 1) Setup Collections, Editons, Plays and Series
+
+flow transactions send $PROJECT_PATH/transactions/utils/setup.cdc \
+    "First" \
+    "RARE" \
+    100
+
+echo "Setup Complete"
+
+# 2) Mint Moments to User
+
+flow transactions send $PROJECT_PATH/transactions/utils/mintMoments.cdc \
+    [1] \
+    [6] # Minting 6 Moments to the User
+
+echo "Minting Complete"

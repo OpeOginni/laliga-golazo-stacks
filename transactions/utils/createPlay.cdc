@@ -1,4 +1,6 @@
-import Golazos from "../../contracts/utils/Golazos.cdc"
+// import Golazos from "../../contracts/utils/Golazos.cdc"
+
+import Golazos from 0xf8d6e0586b0a20c7 // Keep Uncommented When Running the Emulator
 
 transaction(
     name: String,

@@ -141,9 +141,10 @@ access(all) contract GolazosStacks {
             var matchDateAttributeChemScore: UInt64 = 0
             var momentTierAttributeChemScore: UInt64 = 0
 
-            var momentStackAttributes = self.getMomentStackAttributes()
+            var momentStackAttributes: {String: AnyStruct} = self.getMomentStackAttributes()
 
-            log(momentStackAttributes)
+            // Normally Moments that are alike and just have Different Series Number are not meant to be given Chemistry Points as they are not really different
+            // But I left it in for now to make testing easier
 
             var playerCountryCount = momentStackAttributes["PlayerCountry"]! as! {String: UInt64}
             var momentSeriesCount = momentStackAttributes["seriesName"]! as! {String: UInt64} 

@@ -1,6 +1,10 @@
-import GolazosStacks from "../contracts/GolazosStacks.cdc"
-import Golazos from "../contracts/utils/Golazos.cdc"
-import FungibleToken from "../contracts/utils/FungibleToken.cdc"
+// import GolazosStacks from "../contracts/GolazosStacks.cdc"
+// import Golazos from "../contracts/utils/Golazos.cdc"
+// import FungibleToken from "../contracts/utils/FungibleToken.cdc"
+
+import GolazosStacks from 0xf8d6e0586b0a20c7 // Keep Uncommented When Running the Emulator
+import Golazos from 0xf8d6e0586b0a20c7 // Keep Uncommented When Running the Emulator
+import FungibleToken from 0xee82856bf20e2aa6
 
 transaction() {
 

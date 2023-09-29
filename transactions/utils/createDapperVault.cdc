@@ -1,5 +1,8 @@
-import FungibleToken from "../../contracts/utils/FungibleToken.cdc"
-import DapperUtilityCoin from "../../contracts/utils/DapperUtilityCoins.cdc"
+// import FungibleToken from "../../contracts/utils/FungibleToken.cdc"
+// import DapperUtilityCoin from "../../contracts/utils/DapperUtilityCoins.cdc"
+
+import FungibleToken from 0xee82856bf20e2aa6
+import DapperUtilityCoin from 0xf8d6e0586b0a20c7 // Keep Uncommented When Running the Emulator
 
 transaction() {
 

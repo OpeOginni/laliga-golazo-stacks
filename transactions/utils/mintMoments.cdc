@@ -1,6 +1,9 @@
-import Golazos from "../../contracts/utils/Golazos.cdc"
+// import Golazos from "../../contracts/utils/Golazos.cdc"
 
-transaction(recipientAddress: Address, editionIDs: [UInt64], counts: [UInt64]) {
+import Golazos from 0xf8d6e0586b0a20c7 // Keep Uncommented When Running the Emulator
+
+// transaction(recipientAddress: Address, editionIDs: [UInt64], counts: [UInt64]) {
+transaction( editionIDs: [UInt64], counts: [UInt64]) {
     
     // local variable for storing the minter reference
     let minter: &{Golazos.NFTMinter}
@@ -13,7 +16,7 @@ transaction(recipientAddress: Address, editionIDs: [UInt64], counts: [UInt64]) {
             ?? panic("Could not borrow a reference to the NFT minter")
 
         // get the recipients public account object
-        let recipientAccount = getAccount(recipientAddress)
+        let recipientAccount = getAccount(signer.address)
 
         // borrow a public reference to the receivers collection
         self.recipient = recipientAccount.getCapability(Golazos.CollectionPublicPath)

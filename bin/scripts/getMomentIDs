@@ -1,0 +1,25 @@
+#!/bin/bash
+set -e #stops the execution of the script if it fails
+
+ABS_PATH=$(readlink -f "$0")
+
+TRANSACTIONS_PATH=$(dirname $ABS_PATH)
+BIN_PATH=$(dirname $TRANSACTIONS_PATH)
+PROJECT_PATH=$(dirname $BIN_PATH)
+
+echo $PROJECT_PATH
+
+echo "User Address: $1"
+
+if [ $# -ge 1 ]; then
+    echo "You provided the Address Argument: $1 "
+else
+    echo "You didn't pass the needed Arguments. Please Provide as args: ./bin/scripts/getMomentIDs <User Address>"
+    exit 1
+fi
+
+# 1) Get the IDs of the Moments owned by the User
+
+flow scripts execute $PROJECT_PATH/scripts/getMomentIDs.cdc $1
+
+
