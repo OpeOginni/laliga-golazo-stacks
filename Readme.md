@@ -53,3 +53,7 @@ chmod u+x ./bin/scripts/getMomentIDs
 - Get the IDs of exisitng Stacks you have (which will be one ID for now) `./bin/scripts/getStackIDs <user_address>`
 - Using the Stack ID you can get the Attributes of the Stack with the command `./bin/scripts/getStackAttribs <owner_address> <stack_id>`
 - Using the Stack ID you can also get the Details of the Stack with the command `./bin/scripts/getStackDetails <owner_address> <stack_id>`
+
+### DEMO
+
+![Demo VID](./assets/GolazoStacks_Vid.mp4)
