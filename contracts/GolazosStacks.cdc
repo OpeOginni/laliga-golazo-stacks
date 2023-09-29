@@ -10,9 +10,8 @@ access(all) contract GolazosStacks {
 
     access(all) event StackCreated(momentIDs: [UInt64], stackID: UInt64, address: Address?)
     access(all) event StackListed(stackID: UInt64, price: UFix64, seller: Address?)
-    // access(all) event BundlePriceChanged(id: UInt64, newPrice: UFix64, seller: Address?)
-    access(all) event StackPurchased(stackID: UInt64, price: UFix64, seller: Address?)
-    access(all) event StackTransfered(stackID: UInt64, from: Address?, to: Address?)
+    // access(all) event StackPurchased(stackID: UInt64, price: UFix64, seller: Address?)
+    // access(all) event StackTransfered(stackID: UInt64, from: Address?, to: Address?)
     access(all) event StackDestroyed(stackID: UInt64)
 
     access(all) let GolazoStackStoragePath: StoragePath
@@ -467,6 +466,7 @@ access(all) contract GolazosStacks {
         /// purchase lets a user send tokens to purchase a Bundle that is for sale
         /// the purchased Bundle is returned to the transaction context that called it
 
+        // Purchase Functionality Put on Hold (As it isn't a core needed functionality)
 /*
         access(all) fun purchase(stackID: UInt64, buyTokens: @DapperUtilityCoin.Vault, buyerStacksCollection: Capability<&GolazosStacks.GolazosStackCollection>, keepStack: Bool): @[Golazos.NFT] {
             pre {
