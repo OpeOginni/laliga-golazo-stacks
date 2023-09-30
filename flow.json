@@ -1,57 +1,70 @@
 {
+  "contracts": {
+    "DapperUtilityCoins": {
+      "source": "./contracts/utils/DapperUtilityCoins.cdc",
+      "aliases": {
+        "emulator": "f8d6e0586b0a20c7"
+      }
+    },
+    "FungibleToken": {
+      "source": "./contracts/utils/FungibleToken.cdc",
+      "aliases": {
+        "emulator": "ee82856bf20e2aa6",
+        "testnet": "9a0766d93b6608b7"
+      }
+    },
+    "Golazos": {
+      "source": "./contracts/utils/Golazos.cdc",
+      "aliases": {
+        "emulator": "f8d6e0586b0a20c7"
+      }
+    },
+    "GolazosStacks": {
+      "source": "./contracts/GolazosStacks.cdc",
+      "aliases": {
+        "emulator": "f8d6e0586b0a20c7"
+      }
+    },
+    "MetadataViews": {
+      "source": "./contracts/utils/MetadataViews.cdc",
+      "aliases": {
+        "emulator": "f8d6e0586b0a20c7",
+        "testnet": "631e88ae7f1d7c20"
+      }
+    },
+    "NonFungibleToken": {
+      "source": "./contracts/utils/NonFungibleToken.cdc",
+      "aliases": {
+        "emulator": "f8d6e0586b0a20c7",
+        "testnet": "631e88ae7f1d7c20"
+      }
+    }
+  },
   "networks": {
     "emulator": "127.0.0.1:3569",
     "mainnet": "access.mainnet.nodes.onflow.org:9000",
     "sandboxnet": "access.sandboxnet.nodes.onflow.org:9000",
     "testnet": "access.devnet.nodes.onflow.org:9000"
   },
-  "contracts": {
-    "FungibleToken": {
-      "source": "./contracts/utils/FungibleToken.cdc",
-      "aliases": {
-        "emulator": "0xee82856bf20e2aa6"
+  "accounts": {
+    "admin-testnet": {
+      "address": "dc6f3b8d8d90e4c7",
+      "key": {
+        "type": "file",
+        "location": "admin-testnet.pkey"
       }
     },
-    "MetadataViews": {
-      "source": "./contracts/utils/MetadataViews.cdc",
-      "aliases": {
-        "emulator": "0xf8d6e0586b0a20c7"
-      }
-    },
-    "NonFungibleToken": {
-      "source": "./contracts/utils/NonFungibleToken.cdc",
-      "aliases": {
-        "emulator": "0xf8d6e0586b0a20c7"
-      }
-    },
-    "DapperUtilityCoins": {
-      "source": "./contracts/utils/DapperUtilityCoins.cdc",
-      "aliases": {
-        "emulator": "0xf8d6e0586b0a20c7"
-      }
-    },
-    "Golazos": {
-      "source": "./contracts/utils/Golazos.cdc",
-      "aliases": {
-        "emulator": "0xf8d6e0586b0a20c7"
-      }
-    },
-    "GolazosStacks": {
-      "source": "./contracts/GolazosStacks.cdc",
-      "aliases": {
-        "emulator": "0xf8d6e0586b0a20c7"
-      }
+    "emulator-account": {
+      "address": "f8d6e0586b0a20c7",
+      "key": "26ca446ca7872177bd9d8cf154667618e906f2e431af8c452ad36078ac91a38b"
     }
   },
   "deployments": {
     "emulator": {
       "emulator-account": ["DapperUtilityCoins", "Golazos", "GolazosStacks"]
-    }
-  },
-  "accounts": {
-    "emulator-account": {
-      "address": "f8d6e0586b0a20c7",
-      "key": "26ca446ca7872177bd9d8cf154667618e906f2e431af8c452ad36078ac91a38b"
+    },
+    "testnet": {
+      "admin-testnet": ["DapperUtilityCoins", "Golazos", "GolazosStacks"]
     }
   }
 }
