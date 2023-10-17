@@ -283,7 +283,7 @@ access(all) contract GolazosStacks {
 
     access(all) resource interface StackPublic {
         // access(all) fun purchase(stackID: UInt64, buyTokens: @DapperUtilityCoin.Vault, buyerStacksCollection: Capability<&GolazosStacks.GolazosStackCollection>, keepStack: Bool): @[Golazos.NFT]
-        access(all) fun addMomentStack(momentStack: MomentStack, stackID: UInt64)
+        access(contract) fun addMomentStack(momentStack: MomentStack, stackID: UInt64)
         access(all) fun getMomentStackAttributes(stackID: UInt64): {String: AnyStruct} // Returns the details of a particular stack in the Collection using the ID
         access(all) fun getMomentDatasInMomentStack(stackID: UInt64): [&Golazos.NFT?]? // Returns the details of each Moment in a Stack
         access(all) fun getStackIDs(): [UInt64] // Returns available Stack Resource IDs in a Stack Collection
@@ -292,9 +292,9 @@ access(all) contract GolazosStacks {
   
     access(all) resource GolazosStackCollection: StackPublic {
         access(self) var ownerCollection: Capability<&{Golazos.MomentNFTCollectionPublic}> // A reference to the Capability of the User's Golazos Collection
-        access(self) var stacks: {UInt64: MomentStack} // A mapping of an Unsigned Integer to a Stack, represents the stack ID
+        access(self) let stacks: {UInt64: MomentStack} // A mapping of an Unsigned Integer to a Stack, represents the stack ID
         access(self) var ownerCapability: Capability<&{FungibleToken.Receiver}> // A Referecnce to the FungibleToken Reciever Capability to aid Transfer of tokens for Selling and Buying
-        access(self) var stackedMoments: {UInt64: Bool} // A mapping of MomentIDs to a boolean, represents if a Moment is in a Stack or not
+        access(self) let stackedMoments: {UInt64: Bool} // A mapping of MomentIDs to a boolean, represents if a Moment is in a Stack or not
 
         init (
             ownerCollection: Capability<&{Golazos.MomentNFTCollectionPublic}>,
